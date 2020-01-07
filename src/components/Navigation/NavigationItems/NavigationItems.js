@@ -1,8 +1,13 @@
 import React from 'react';
 
+import classes from './NavigationItems.css';
+import NavigationItem from './NavigationItem/NavigationItem';
+
 const navigationItems = (props) => (
-    <ul>
-        <li><a href="/">A Link</a></li>
+    <ul className={classes.NavigationItems}>
+        {/* for boolean props we can just pass name */}
+        <NavigationItem link={"/"} active>Burger builder</NavigationItem>
+        <NavigationItem>Checkout</NavigationItem>
     </ul>
 );
 
