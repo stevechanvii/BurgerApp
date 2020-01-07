@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 
 import classes from './BurgerIngredient.css';
 
+/**
+ * @class BurgerIngredient
+ * 
+ * Logic for ingredients used by Burger.js
+ */
 class BurgerIngredient extends Component {
     render () {
         let ingredient = null;

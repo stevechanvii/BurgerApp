@@ -3,6 +3,12 @@ import React from 'react';
 import classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
+/**
+ * @function burger
+ * @param {*} props 
+ * 
+ * This component generates burger based on the user added or remove the ingredients
+ */
 const burger = (props) => {
 
     /**

@@ -4,6 +4,12 @@ import classes from './Modal.css';
 import Aux from '../../../hoc/Aux';
 import Backdrop from '../Backdrop/Backdrop';
 
+/**
+ * @function modal
+ * @param {*} props 
+ * 
+ * Pop up window for order
+ */
 const modal = (props) => (
     <Aux>
         <Backdrop show={props.show} clicked={props.modalColsed} />
