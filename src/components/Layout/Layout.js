@@ -5,6 +5,12 @@ import classes from './Layout.css';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
+/**
+ * @function layout
+ * @param {*} props 
+ * 
+ * Called by App.js, as a layout of burger App
+ */
 const layout = (props) => (
     <Aux>
         <Toolbar />
