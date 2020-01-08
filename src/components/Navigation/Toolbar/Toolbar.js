@@ -3,6 +3,7 @@ import React from 'react';
 import classes from './Toolbar.css';
 import Logo from '../../Logo/Logo';
 import NavagationItems from '../NavigationItems/NavigationItems';
+import DrawToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 /**
  * @function toolbar
@@ -12,7 +13,7 @@ import NavagationItems from '../NavigationItems/NavigationItems';
  */
 const toolbar = (props) => (
     <header className={classes.Toolbar}>
-        <div>Menu</div>
+        <DrawToggle clicked={props.drawToggleClicked} />
         <div className={classes.Logo}>
                 <Logo />
             </div>
