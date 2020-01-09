@@ -55,7 +55,17 @@ class BurgerBuilder extends Component {
     componentDidMount() {
         axios.get('/ingredients.json').then(response => {
             // console.log(response.data);
-            this.setState({ ingredients: response.data });
+            this.setState({
+                ingredients: response.data,
+                totalPrice: Object.keys(response.data).map(igKey => {
+                    return response.data[igKey] * INGREDIENT_PRICES[igKey];
+                }).reduce((sum, el) => {
+                    return sum + el;
+                }, 4)
+            });
+            this.updatePurchaseState(response.data);
+        }).catch(error => {
+            console.log(error);
         });
     }
 
