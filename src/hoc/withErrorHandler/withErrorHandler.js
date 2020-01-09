@@ -17,21 +17,27 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error: null
         }
 
-        componentDidMount() {
+        componentWillMount() {
             /**
              * the interceptor basically catches any request made by the app and interrupts it to do some logic, 
              * and eventually, after it's done with the logic, it has to return the request result 
              * (whether a request config or a response) in order to allow the part where the request 
              * was initiated to continue running
              */
-            axios.interceptors.request.use(req => {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({ error: null });
                 return req;
             });
 
-            axios.interceptors.response.use(res => res, error => {
+            this.resIntercepter = axios.interceptors.response.use(res => res, error => {
                 this.setState({ error: error });
             });
+        }
+
+        componentWillUnmount(){
+            console.log('[componentWillUnmount]');
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resIntercepter);
         }
 
         errorConfirmedHandler = () => {
