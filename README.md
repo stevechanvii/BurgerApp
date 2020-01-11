@@ -2,7 +2,7 @@
 
 Customize your own burger and ordered! This burger App allows you create your Burger, your order will be saved in Firebase. The project created purely by React framework.
 
-![Screenshot](/src/assets/burger_app.png)
+![Screenshot](/src/assets/burger_app_1.png)
 
 ## Getting Started
 
