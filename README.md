@@ -19,10 +19,8 @@ Download the code, go to project root directory and install packages, dependenci
 npm install
 ```
 
-Create your own Realtime Firebase, and replace the URL in axios-order.js
-```
-npm start
-```
+Create your own Realtime Firebase, and replace the baseURL in axios-order.js
+
 
 ## Running the tests
 ```
@@ -42,13 +40,13 @@ Add additional notes about how to deploy this on a live system
 
 ## Versioning
 
-[V 0.1] 11/Jan/2019
+[V0.1] 11/Jan/2019
 * Add and remove ingredients of the burger
 * Make the order and the order summary will be upload to databse
 
 ## Authors
 
-* **Danyang Chen** - *Initial work* - [Danyang Chen](https://github.com/stevechanvii/)
+* **Danyang Chen** - *Initial work* - [SteveChanVII](https://github.com/stevechanvii/)
 
 ## License
 
