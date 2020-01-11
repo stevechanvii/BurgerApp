@@ -1,57 +1,35 @@
 # Burger App
 
-One Paragraph of project description goes here
+Customize your own burger and ordered! This burger App allows you create your Burger, your order will be saved in Firebase. The project created purely by React framework.
+
 ![Screenshot](/src/assets/burger_app.png)
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+VS Code
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Firstly, the environment should be setup, please refer to React offical site: https://reactjs.org
 
-Say what the step will be
-
+Download the code, go to project root directory and install packages, dependencies
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+npm install
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Create your own Realtime Firebase, and replace the URL in axios-order.js
+```
+npm start
+```
 
 ## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
 ```
-Give an example
+npm start
 ```
+![Screenshot](/src/assets/burger_app_2.png)
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
@@ -59,30 +37,20 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [React](https://reactjs.org/) - The web framework used
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+[V 0.1] 11/Jan/2019
+* Add and remove ingredients of the burger
+* Make the order and the order summary will be upload to databse
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Danyang Chen** - *Initial work* - [Danyang Chen](https://github.com/stevechanvii/)
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
