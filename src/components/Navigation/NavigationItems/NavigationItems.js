@@ -12,8 +12,8 @@ import NavigationItem from './NavigationItem/NavigationItem';
 const navigationItems = (props) => (
     <ul className={classes.NavigationItems}>
         {/* for boolean props we can just pass name */}
-        <NavigationItem link={"/"} active>Burger builder</NavigationItem>
-        <NavigationItem>Checkout</NavigationItem>
+        <NavigationItem link="/" exact>Burger builder</NavigationItem>
+        <NavigationItem link="/orders">Orders</NavigationItem>
     </ul>
 );
 
