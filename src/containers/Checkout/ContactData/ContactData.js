@@ -5,6 +5,11 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './ContactData.css';
 import axios from '../../../axios-order';
 
+/**
+ * @class ContactData
+ * 
+ * Contact form, receive customer details and save in database
+ */
 class ContactData extends Component {
     state = {
         name: '',

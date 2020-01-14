@@ -4,6 +4,11 @@ import { Route } from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
 
+/**
+ * @class Checkout
+ * 
+ * Checkout container which define continue and cancel handler, and pass ingredients to checkoutSummary
+ */
 class Checkout extends Component {
     state = {
         ingredients: null,
