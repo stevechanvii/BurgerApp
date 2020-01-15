@@ -19,42 +19,55 @@ class ContactData extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Full Name'
-                }
+                },
+                value: '',
             },
             street: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Street'
-                }
+                },
+                value: '',
             },
             suburb: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Suburb'
-                }
+                },
+                value: '',
             },
             state: {
-                elementType: 'input',
+                elementType: 'select',
                 elementConfig: {
-                    type: 'text',
-                    placeholder: 'State'
-                }
+                    options: [
+                        { value: 'vic', displayValue: 'VIC' },
+                        { value: 'nsw', displayValue: 'NSW' },
+                        { value: 'qld', displayValue: 'QLD' },
+                        { value: 'wa', displayValue: 'WA' },
+                        { value: 'sa', displayValue: 'SA' },
+                        { value: 'act', displayValue: 'ACT' },
+                        { value: 'tas', displayValue: 'TAS' },
+                    ]
+                },
+                value: '',
             },
             postCode: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Post Code'
-                }
+                },
+                value: '',
             },
             email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
                     placeholder: 'Email'
-                }
+                },
+                value: '',
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -63,7 +76,8 @@ class ContactData extends Component {
                         { value: 'fastest', displayValue: 'Fastest' },
                         { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
-                }
+                },
+                value: '',
             },
         },
         loading: false,
@@ -92,6 +106,29 @@ class ContactData extends Component {
         console.log(this.props.ingredients);
     }
 
+    /**
+     * Two way binding, catch the input of the form
+     * Since it's nested obj, we have to access it and then wrap it back
+     */
+    inputChangedHandler = (event, inputIdentifier) => {
+        console.log(event.target.value);
+        // copy the orderForm
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        }
+        // then access the form content in orderForm
+        const updatedFormElement = {
+            ...updatedOrderForm[inputIdentifier]
+        }
+        // update the value
+        updatedFormElement.value = event.target.value;
+        // save back in the orderForm
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        // set state
+        this.setState({orderForm: updatedOrderForm});
+
+    }
+
     render() {
         const formElementsArray = [];
         for (let key in this.state.orderForm) {
@@ -107,6 +144,7 @@ class ContactData extends Component {
                     <Input
                         key={formEle.id}
                         elementType={formEle.config.elementType}
+                        changed={(event) => this.inputChangedHandler(event, formEle.key)}
                         elementConfig={formEle.config.elementConfig}
                         value={formEle.config.value} />
                 ))}
