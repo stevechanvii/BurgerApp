@@ -21,6 +21,11 @@ class ContactData extends Component {
                     placeholder: 'Full Name'
                 },
                 value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
             },
             street: {
                 elementType: 'input',
@@ -29,6 +34,11 @@ class ContactData extends Component {
                     placeholder: 'Street'
                 },
                 value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
             },
             suburb: {
                 elementType: 'input',
@@ -37,21 +47,28 @@ class ContactData extends Component {
                     placeholder: 'Suburb'
                 },
                 value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
             },
             state: {
                 elementType: 'select',
                 elementConfig: {
                     options: [
-                        { value: 'vic', displayValue: 'VIC' },
-                        { value: 'nsw', displayValue: 'NSW' },
-                        { value: 'qld', displayValue: 'QLD' },
-                        { value: 'wa', displayValue: 'WA' },
-                        { value: 'sa', displayValue: 'SA' },
-                        { value: 'act', displayValue: 'ACT' },
-                        { value: 'tas', displayValue: 'TAS' },
+                        { value: 'VIC', displayValue: 'VIC' },
+                        { value: 'NSW', displayValue: 'NSW' },
+                        { value: 'QLD', displayValue: 'QLD' },
+                        { value: 'WA', displayValue: 'WA' },
+                        { value: 'SA', displayValue: 'SA' },
+                        { value: 'ACT', displayValue: 'ACT' },
+                        { value: 'TAS', displayValue: 'TAS' },
                     ]
                 },
-                value: '',
+                value: 'VIC',
+                validation: {},
+                valid: true,
             },
             postCode: {
                 elementType: 'input',
@@ -60,6 +77,13 @@ class ContactData extends Component {
                     placeholder: 'Post Code'
                 },
                 value: '',
+                validation: {
+                    required: true,
+                    minLength: 4,
+                    maxLength: 4,
+                },
+                valid: false,
+                touched: false,
             },
             email: {
                 elementType: 'input',
@@ -68,6 +92,11 @@ class ContactData extends Component {
                     placeholder: 'Email'
                 },
                 value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -77,21 +106,38 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
-                value: '',
+                value: 'fastest',
+                validation: {},
+                valid: true,
             },
         },
+        formIsValid: false,
         loading: false,
     }
 
+    /**
+     * order submit handler
+     */
     orderHandler = (event) => {
-        // event.PreventDefault to prevent the default which is to send a request which I don't want
+        // event.PreventDefault to prevent the default sending a request and reload the page
         event.preventDefault();
 
         this.setState({ loading: true });
+
+        // get the name and value from the state
+        const formData = {};
+        /**
+         * for/in - loops through the properties of an object (key of the obj)
+         * for/of - loops through the values of an iterable object, such as Arrays, Strings, Maps, NodeLists, and more.
+         */
+        for (let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+        }
+
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
-
+            orderData: formData
         }
 
         axios.post('/orders.json', order).then(response => {
@@ -103,7 +149,7 @@ class ContactData extends Component {
             this.setState({ loading: false });
         });
 
-        console.log(this.props.ingredients);
+        console.log(order);
     }
 
     /**
@@ -111,7 +157,7 @@ class ContactData extends Component {
      * Since it's nested obj, we have to access it and then wrap it back
      */
     inputChangedHandler = (event, inputIdentifier) => {
-        console.log(event.target.value);
+        console.log(event.target.value, inputIdentifier);
         // copy the orderForm
         const updatedOrderForm = {
             ...this.state.orderForm
@@ -122,11 +168,43 @@ class ContactData extends Component {
         }
         // update the value
         updatedFormElement.value = event.target.value;
+        updatedFormElement.touched = true;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
         // save back in the orderForm
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        // set state
-        this.setState({orderForm: updatedOrderForm});
+        
+        let formIsValid = true;
+        for (let inputIdentifier in updatedOrderForm) {
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
+        }
 
+        // set state
+        this.setState({ orderForm: updatedOrderForm, formIsValid });
+        console.log(updatedOrderForm)
+
+    }
+
+    // input validation
+    checkValidity = (value, rules) => {
+        let isValid = true;
+
+        if(!rules) {
+            return true;
+        }
+
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid;
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid;
+        }
+
+        return isValid;
     }
 
     render() {
@@ -138,17 +216,22 @@ class ContactData extends Component {
             });
         }
 
+        console.log(formElementsArray)
+
         let form = (
-            <form>
+            <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formEle => (
                     <Input
                         key={formEle.id}
                         elementType={formEle.config.elementType}
-                        changed={(event) => this.inputChangedHandler(event, formEle.key)}
+                        changed={(event) => this.inputChangedHandler(event, formEle.id)}
                         elementConfig={formEle.config.elementConfig}
-                        value={formEle.config.value} />
+                        value={formEle.config.value}
+                        invalid={!formEle.config.valid}
+                        touched={formEle.config.touched}
+                        shouldValidate={formEle.config.validation} />
                 ))}
-                <Button btnType="Success" clicked={this.orderHandler}>Order</Button>
+                <Button btnType="Success" clicked={this.orderHandler} disabled={!this.state.formIsValid}>Order</Button>
             </form>
         );
         if (this.state.loading) {

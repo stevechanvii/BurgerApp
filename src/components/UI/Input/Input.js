@@ -10,14 +10,22 @@ import classes from './Input.css';
  */
 const input = (props) => {
     let inputElement = null;
+    let validationError = null;
+    const inputClasses = [classes.InputElement];
+
+    // validation check
+    if (props.invalid && props.shouldValidate && props.touched) {
+        inputClasses.push(classes.Invalid);
+        validationError = <p className={classes.ValidationError}>Please enter a valid {props.elementConfig.placeholder}!</p>;
+    }
 
     switch (props.elementType) {
         case ('input'):
             inputElement = <input
-                className={classes.InputElement}
+                className={inputClasses.join(' ')}
                 onChange={props.changed}
                 {...props.elementConfig}
-                alue={props.value} />;
+                value={props.value} />;
             break;
         case ('textarea'):
             inputElement = <textarea
@@ -38,13 +46,18 @@ const input = (props) => {
                 </select>)
             break;
         default:
-            inputElement = <input className={classes.InputElement} onChange={props.changed} {...props.elementConfig} value={props.value} />;
+            inputElement = <input
+                className={classes.InputElement}
+                onChange={props.changed}
+                {...props.elementConfig}
+                value={props.value} />;
     }
 
     return (
         <div className={classes.Input}>
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
+            {validationError}
         </div>
     );
 }
