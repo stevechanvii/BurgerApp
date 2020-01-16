@@ -43,6 +43,8 @@ Add additional notes about how to deploy this on a live system
 [V0.1] 11/Jan/2019
 * Add and remove ingredients of the burger
 * Make the order and the order summary will be upload to databse
+[V0.1.2] 16/Jan/2019
+* Implement customer contact form, authenticated and upload to database
 
 ## Authors
 
