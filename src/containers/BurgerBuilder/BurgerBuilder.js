@@ -44,9 +44,14 @@ class BurgerBuilder extends Component {
         }).reduce((sum, el) => {
             return sum + el;
         }, 0);
-        this.setState({ purchaseable: sum > 0 });
+        return sum > 0;
     }
 
+    /**
+    * Disabled
+    * 
+    * get ingredients from database manged by redux
+    */
     componentDidMount() {
         console.log(this.props);
         // axios.get('/ingredients.json').then(response => {
@@ -85,11 +90,11 @@ class BurgerBuilder extends Component {
         this.updatePurchaseState(updatedIngredient);
     }
 
-     /**
-     * Disabled
-     * 
-     * remove ingredient manged by redux
-     */
+    /**
+    * Disabled
+    * 
+    * remove ingredient manged by redux
+    */
     removeIngredientHander = (type) => {
         const updatedCount = this.props.ings[type] - 1;
 
@@ -118,12 +123,12 @@ class BurgerBuilder extends Component {
         this.setState({ purchasing: false });
     }
 
-     /**
-     * Disabled
-     * 
-     * purchase manged by redux
-     */
-    purchaseContinueHandler = () => {
+    /**
+    * Disabled
+    * 
+    * purchase manged by redux
+    */
+    purchaseContinueHandlerDisabled = () => {
         // send parameters by using formate URL?...=...&...=... in history
         const queryParams = [];
         for (let i in this.props.ings) {
@@ -138,6 +143,10 @@ class BurgerBuilder extends Component {
             search: '?' + queryString,
         });
         console.log(this.props);
+    }
+
+    purchaseContinueHandler = () => {
+        this.props.history.push('/checkout');
     }
 
     render() {
@@ -160,7 +169,7 @@ class BurgerBuilder extends Component {
                         ingredientRemoved={this.props.onIngredientRemoved}
                         disabled={disableInfo}
                         price={this.props.price}
-                        purchaseable={this.state.purchaseable}
+                        purchaseable={this.updatePurchaseState(this.props.ings)}
                         ordered={this.purchaseHandler} />
                 </Aux>
             );
@@ -183,7 +192,7 @@ class BurgerBuilder extends Component {
             </Aux>
         );
     }
-} 
+}
 
 const mapStateToProps = state => {
     return {
@@ -194,8 +203,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
-        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
+        onIngredientAdded: (ingName) => dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName: ingName }),
+        onIngredientRemoved: (ingName) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName })
     }
 }
 

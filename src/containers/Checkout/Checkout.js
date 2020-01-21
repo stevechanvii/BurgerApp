@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
@@ -15,32 +16,37 @@ class Checkout extends Component {
         totalPrice: 0,
     }
 
-    componentWillMount() {
-        console.log(this.props);
-        const query = new URLSearchParams(this.props.location.search);
-        const ingredients = {};
-        let price = 0;
-        /**
-         * The for...of statement creates a loop iterating over iterable objects, 
-         * including: built-in String, Array, array-like objects, 
-         * An object implementing URLSearchParams can directly be used in a for...of structure
-         * 
-         * The for...in statement iterates over all enumerable properties of an object 
-         * that are keyed by strings (ignoring ones keyed by Symbols), including inherited 
-         * enumerable properties.
-         */
-        for (let param of query) {
-            if (param[0] === 'price') {
-                price = param[1];
-            } else {
-                // + can convert string to number
-                ingredients[param[0]] = +param[1];
-            }
+    /**
+    * Disabled
+    * 
+    * get ingredients from query manged by redux
+    */
+    // componentWillMount() {
+    //     console.log(this.props);
+    //     const query = new URLSearchParams(this.props.location.search);
+    //     const ingredients = {};
+    //     let price = 0;
+    //     /**
+    //      * The for...of statement creates a loop iterating over iterable objects, 
+    //      * including: built-in String, Array, array-like objects, 
+    //      * An object implementing URLSearchParams can directly be used in a for...of structure
+    //      * 
+    //      * The for...in statement iterates over all enumerable properties of an object 
+    //      * that are keyed by strings (ignoring ones keyed by Symbols), including inherited 
+    //      * enumerable properties.
+    //      */
+    //     for (let param of query) {
+    //         if (param[0] === 'price') {
+    //             price = param[1];
+    //         } else {
+    //             // + can convert string to number
+    //             ingredients[param[0]] = +param[1];
+    //         }
 
-        }
-        this.setState({ ingredients: ingredients, totalPrice: price });
+    //     }
+    //     this.setState({ ingredients: ingredients, totalPrice: price });
 
-    }
+    // }
 
     checkoutCanceledHandler = () => {
         this.props.history.goBack();
@@ -54,17 +60,22 @@ class Checkout extends Component {
         return (
             <div>
                 <CheckoutSummary
-                    ingredients={this.state.ingredients}
+                    ingredients={this.props.ings}
                     checkoutCanceled={this.checkoutCanceledHandler}
                     checkoutContinued={this.checkoutContinuedHandler} />
                 {/* render takes a function */}
                 <Route
                     path={this.props.match.path + '/contact-data'}
-                    // pass props (we need history) to contact data page, push back to root after successfully submit the order
-                    render={(props) => <ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />} />
+                    component={ContactData} />
             </div>
         );
     }
 }
 
-export default Checkout;
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+    }
+}
+
+export default connect(mapStateToProps)(Checkout);
