@@ -48,7 +48,6 @@ class BurgerBuilder extends Component {
     }
 
     /**
-    * Disabled
     * 
     * get ingredients from database manged by redux
     */
@@ -68,6 +67,7 @@ class BurgerBuilder extends Component {
         // }).catch(error => {
         //     console.log(error);
         // });
+        this.props.onInitIngredients;
     }
 
     /**
@@ -194,17 +194,21 @@ class BurgerBuilder extends Component {
     }
 }
 
+// map the redux global state to local state
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        error: state.error
     }
 }
 
+// map redux dispatch so that can be access by props
 const mapDispatchToProps = (dispatch) => {
     return {
         onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName))
+        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+        onInitIngredients: dispatch(burgerBuilderActions.initIngredients()),
     }
 }
 
