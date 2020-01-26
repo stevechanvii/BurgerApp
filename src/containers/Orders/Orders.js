@@ -49,8 +49,6 @@ class Orders extends Component {
             ));
             console.log(orders);
         }
-        
-        console.log(this.props.loading);
         return orders;
     }
 }
