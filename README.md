@@ -40,14 +40,14 @@ Add additional notes about how to deploy this on a live system
 
 ## Versioning
 
-[V0.1] 11/Jan/2019
+[V0.1] 11/Jan/2020
 * Add and remove ingredients of the burger
 * Make the order and the order summary will be upload to databse
 
-[V0.1.2] 16/Jan/2019
+[V0.1.2] 16/Jan/2020
 * Implement customer contact form, authenticated and upload to database
 
-[V0.2] 25/Jan/2019
+[V0.2] 25/Jan/2020
 * Introducing redux to manage the state
 * Using middleware to request data asynchronously
 
