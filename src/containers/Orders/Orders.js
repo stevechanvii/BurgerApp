@@ -22,7 +22,7 @@ class Orders extends Component {
      * get order managed by redux
      */
     componentDidMount() {
-        this.props.onFetchOrderStart();
+        this.props.onFetchOrder();
         // axios.get('orders.json').then(response => {
         //     console.log(response.data);
 
@@ -47,7 +47,10 @@ class Orders extends Component {
             orders = this.props.orders.map(order => (
                 <Order key={order.id} ingredients={order.ingredients} price={+order.price} />
             ));
+            console.log(orders);
         }
+        
+        console.log(this.props.loading);
         return orders;
     }
 }
@@ -61,7 +64,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchOrderStart: () => dispatch(actions.fetchOrders()),
+        onFetchOrder: () => dispatch(actions.fetchOrders()),
     }
 }
 
