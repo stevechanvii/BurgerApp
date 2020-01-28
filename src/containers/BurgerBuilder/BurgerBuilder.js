@@ -115,8 +115,18 @@ class BurgerBuilder extends Component {
         this.updatePurchaseState(updatedIngredient);
     }
 
+    /**
+     * This method will be passed into BuildControls.js, when the order button click, the method will be executed
+     * and the Modal will be popup. If purchasing is false, the Modal will disappear.
+     */
     purchaseHandler = () => {
-        this.setState({ purchasing: true });
+        // if user not login, it will redirect to auth
+        if (this.props.isAuthenticated) {
+            this.setState({ purchasing: true });
+        } else {
+            this.props.history.push('/auth');
+        }
+        
     }
 
     purchaseCancelHandler = () => {
@@ -171,6 +181,7 @@ class BurgerBuilder extends Component {
                         disabled={disableInfo}
                         price={this.props.price}
                         purchaseable={this.updatePurchaseState(this.props.ings)}
+                        isAuth={this.props.isAuthenticated}
                         ordered={this.purchaseHandler} />
                 </Aux>
             );
@@ -200,7 +211,8 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
+        error: state.burgerBuilder.error,
+        isAuthenticated: state.auth.token,
     }
 }
 
