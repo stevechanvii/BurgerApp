@@ -14,7 +14,9 @@ const navigationItems = (props) => (
         {/* for boolean props we can just pass name */}
         <NavigationItem link="/" exact>Burger builder</NavigationItem>
         <NavigationItem link="/orders">Orders</NavigationItem>
-        <NavigationItem link="/auth">Log in</NavigationItem>
+        {!props.isAuthenticated
+            ? <NavigationItem link="/auth">Sign/Login</NavigationItem>
+            : <NavigationItem link="/logout">Logout</NavigationItem>}
     </ul>
 );
 
