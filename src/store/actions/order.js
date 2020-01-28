@@ -63,10 +63,11 @@ export const fetchOrderStart = () => {
     }
 }
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
     return dispatch => {
         dispatch(fetchOrderStart());
-        axios.get('orders.json').then(response => {
+        // the order on server(firebase) only can be accessed with a valid token
+        axios.get('orders.json?auth=' + token).then(response => {
             let fetchedOrders = [];
             for (let key in response.data) {
                 fetchedOrders.push({
