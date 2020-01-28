@@ -10,7 +10,7 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
  * @function layout
  * @param {*} props 
  * 
- * Called by App.js, as a layout of burger App
+ * Called by App.js, as a layout of burger App, including toolbar, sidedrawer and main content
  */
 class Layout extends Component {
     state = {
@@ -48,6 +48,7 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
     return {
+        // if token is empty, then isAuthenticate is false
         isAuthenticate: state.auth.token !== null
     }
 }

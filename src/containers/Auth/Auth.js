@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
@@ -129,10 +130,12 @@ class Auth extends Component {
 
         ));
 
+        // Before we get the message from server, the form will change to spinner
         if (this.props.loading) {
             form = <Spinner />
         }
 
+        // If the server sends back error message, showing as the Modal
         let errorMessage = null;
         if (this.props.error) {
             errorMessage = (
@@ -140,12 +143,19 @@ class Auth extends Component {
             )
         }
 
+        // If the user successed login, then redirect to root component
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to="/" />
+        }
+
         return (
             <div className={classes.Auth}>
+                {authRedirect}
+                {errorMessage}
                 <h2>{this.state.isSignup ? 'Register' : 'Login'}</h2>
                 <form onSubmit={this.submitHandler}>
                     {form}
-                    {errorMessage}
                     <Button btnType="Success">Submit</Button>
                 </form>
                 <Button btnType="Danger" clicked={this.switchAuthModeHandler}>Switch to {this.state.isSignup ? 'Login' : 'Sign Up'}</Button>
@@ -158,6 +168,7 @@ const mapStateToProps = (state) => {
     return {
         loading: state.auth.loading,
         error: state.auth.error,
+        isAuthenticated: state.auth.token !== null
     }
 }
 
