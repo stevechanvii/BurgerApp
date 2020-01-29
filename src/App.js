@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
@@ -7,8 +8,13 @@ import Checkout from './containers/Checkout/Checkout';
 import Orders from './containers/Orders/Orders';
 import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
+import * as actions from './store/actions/index';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.onTryAutoSignup();
+  }
+
   render() {
     return (
       <div>
@@ -26,4 +32,15 @@ class App extends Component {
   }
 }
 
-export default App;
+// check local storage whether valid token exists, if true try auto login
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState()),
+  }
+}
+
+/**
+ * Connect() can prevent the routing-related props to be passed to the component. 
+ * withRouter fixes that as it ensures that the routing props (for history etc) are passed down. 
+ */
+export default withRouter(connect(null, mapDispatchToProps)(App));
