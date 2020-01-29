@@ -33,7 +33,8 @@ In database, change the rules to
       },
       "orders": {
         ".read": "auth != null",
-        ".write": "auth != null"
+        ".write": "auth != null",
+        ".indexOn": ["userId"]
       }
   }
 }

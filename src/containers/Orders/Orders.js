@@ -22,7 +22,7 @@ class Orders extends Component {
      * get order managed by redux
      */
     componentDidMount() {
-        this.props.onFetchOrder(this.props.token);
+        this.props.onFetchOrder(this.props.token, this.props.userId);
         // axios.get('orders.json').then(response => {
         //     console.log(response.data);
 
@@ -44,10 +44,13 @@ class Orders extends Component {
     render() {
         let orders = <Spinner />;
         if (!this.props.loading) {
-            orders = this.props.orders.map(order => (
-                <Order key={order.id} ingredients={order.ingredients} price={+order.price} />
-            ));
-            console.log(orders);
+            if (this.props.orders.length > 0){
+                orders = this.props.orders.map(order => (
+                    <Order key={order.id} ingredients={order.ingredients} price={+order.price} />
+                ));
+            } else {
+                orders = <p>Make your first in Burger Builder!</p>
+            }
         }
         return orders;
     }
@@ -57,13 +60,14 @@ const mapStateToProps = (state) => {
     return {
         orders: state.order.orders,
         loading: state.order.loading,
-        token: state.auth.token
+        token: state.auth.token, 
+        userId: state.auth.userId
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchOrder: (token) => dispatch(actions.fetchOrders(token)),
+        onFetchOrder: (token, userId) => dispatch(actions.fetchOrders(token, userId)),
     }
 }
 

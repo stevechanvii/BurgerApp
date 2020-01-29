@@ -63,11 +63,14 @@ export const fetchOrderStart = () => {
     }
 }
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrderStart());
-        // the order on server(firebase) only can be accessed with a valid token
-        axios.get('orders.json?auth=' + token).then(response => {
+
+        // search a valid user (with token) with userId on server (firebase)
+        const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId+ '"';
+
+        axios.get('orders.json' + queryParams).then(response => {
             let fetchedOrders = [];
             for (let key in response.data) {
                 fetchedOrders.push({
