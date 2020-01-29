@@ -48,6 +48,15 @@ class Auth extends Component {
         isSignup: true,
     };
 
+    // check whether user has built the burger (reducer/burgerBuilder.js) 
+    // and redirect path (reducer/authRedirectPath.js) is root, if both not 
+    // which means the user hasn't build the burger, then set the path to root.
+    componentDidMount() {
+        if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
+            this.props.onSetAuthRedirectPath();
+        }
+    }
+
     // input validation
     checkValidity = (value, rules) => {
         let isValid = true;
@@ -143,10 +152,13 @@ class Auth extends Component {
             )
         }
 
-        // If the user successed login, then redirect to root component
+        /**
+         * If the user successed login, then redirect to either /root or /checkout, 
+         * based on the whether user has built the burger
+         */
         let authRedirect = null;
         if (this.props.isAuthenticated) {
-            authRedirect = <Redirect to="/" />
+            authRedirect = <Redirect to={this.props.authRedirectPath} />
         }
 
         return (
@@ -168,13 +180,16 @@ const mapStateToProps = (state) => {
     return {
         loading: state.auth.loading,
         error: state.auth.error,
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        buildingBurger: state.burgerBuilder.building,
+        authRedirectPath: state.auth.authRedirectPath
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup))
+        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
     }
 }
 

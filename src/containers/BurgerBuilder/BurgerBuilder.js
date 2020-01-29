@@ -67,7 +67,7 @@ class BurgerBuilder extends Component {
         // }).catch(error => {
         //     console.log(error);
         // });
-        this.props.onInitIngredients;
+        this.props.onInitIngredients();
     }
 
     /**
@@ -120,10 +120,12 @@ class BurgerBuilder extends Component {
      * and the Modal will be popup. If purchasing is false, the Modal will disappear.
      */
     purchaseHandler = () => {
-        // if user not login, it will redirect to auth
+        // if user not login, it will redirect to auth, and the path will be set to /checkout, which means 
+        // once user login or register, the path will be changed to checkout instead of root
         if (this.props.isAuthenticated) {
             this.setState({ purchasing: true });
         } else {
+            this.props.onSetAuthRedirectPath('/checkout');
             this.props.history.push('/auth');
         }
         
@@ -221,8 +223,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
         onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
-        onInitIngredients: dispatch(burgerBuilderActions.initIngredients()),
+        onInitIngredients:() => dispatch(burgerBuilderActions.initIngredients()),
         onPurchaseInit: () => dispatch(burgerBuilderActions.purchaseInit()),
+        onSetAuthRedirectPath: (path) => dispatch(burgerBuilderActions.setAuthRedirectPath(path)),
     }
 }
 

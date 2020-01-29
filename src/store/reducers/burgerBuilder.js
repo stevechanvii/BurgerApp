@@ -1,9 +1,17 @@
 import * as actionTypes from '../actions/actionTypes';
 
+/**
+ * @property ingredients, an object including ingredients user ordered
+ * @property totalPrice, base price is 4
+ * @property error, error message when unable to fetch the order
+ * @property building, set to true when add or remove an ingredient, if the build burger page is redirected,
+ * this will be marked and redirect to checkout instead of root
+ */
 const initialState = {
     ingredients: null,
     totalPrice: 4,
     error: false,
+    building: false
 }
 
 const INGREDIENT_PRICES = {
@@ -24,7 +32,8 @@ const reducer = (state = initialState, action) => {
                     // pass a variable over a something which contains the name to use as a property name
                     [action.ingredientName]: state.ingredients[action.ingredientName] + 1
                 },
-                totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+                totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+                building: true
             }
         case actionTypes.REMOVE_INGREDIENT:
             return {
@@ -33,7 +42,8 @@ const reducer = (state = initialState, action) => {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] - 1
                 },
-                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
+                building: true
             }
         case actionTypes.SET_INGREDIENTS:
             return {
@@ -47,7 +57,8 @@ const reducer = (state = initialState, action) => {
                     meat:action.ingredients.meat,
                 },
                 totalPrice: 4,
-                error: false
+                error: false,
+                building: false
             }
         case actionTypes.FETCH_INGREDIENTS_FAILED:
             return {
