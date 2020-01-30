@@ -93,10 +93,6 @@ class Auth extends Component {
 
     // Listener for all input, and update the state
     inputChangedHandler = (event, controlName) => {
-        const updatedControls = {
-            ...this.state.controls,
-
-        }
 
         // update nested object
         const updatedControls = updateObject(this.state.controls, {
