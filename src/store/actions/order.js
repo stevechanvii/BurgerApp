@@ -78,7 +78,7 @@ export const fetchOrders = (token, userId) => {
                     id: key,
                 });
             }
-            console.log(fetchedOrders);
+            // console.log(fetchedOrders);
             dispatch(fetchOrderSuccess(fetchedOrders));
         }).catch(error => {
             dispatch(fetchOrderFail(error));

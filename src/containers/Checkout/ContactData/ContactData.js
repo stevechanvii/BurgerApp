@@ -155,7 +155,7 @@ class ContactData extends Component {
         // });
         this.props.onPurchaseBurger(order, this.props.token);
 
-        console.log(order);
+        // console.log(order);
     }
 
     /**
@@ -163,7 +163,7 @@ class ContactData extends Component {
      * Since it's nested obj, we have to access it and then wrap it back
      */
     inputChangedHandler = (event, inputIdentifier) => {
-        console.log(event.target.value, inputIdentifier);
+        // console.log(event.target.value, inputIdentifier);
 
         // update the nested values in orderForm
         const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
@@ -184,7 +184,7 @@ class ContactData extends Component {
 
         // set state
         this.setState({ orderForm: updatedOrderForm, formIsValid });
-        console.log(updatedOrderForm)
+        // console.log(updatedOrderForm)
 
     }
 
@@ -197,7 +197,7 @@ class ContactData extends Component {
             });
         }
 
-        console.log(formElementsArray)
+        // console.log(formElementsArray)
 
         let form = (
             <form onSubmit={this.orderHandler}>

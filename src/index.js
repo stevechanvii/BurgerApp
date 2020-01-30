@@ -14,7 +14,7 @@ import authReducer from './store/reducers/auth';
 
 // Redux DevTools Extension
 // check if it is development environment (in config/env.js), if not avoid redux inspection for security
-const composeEnhancers = process.env.NODE_ENV == 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
     burgerBuilder: burgerBuilderReducer,
