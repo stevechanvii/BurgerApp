@@ -32,4 +32,11 @@ describe('<NavigationItems />', () => {
         wrapper.setProps({isAuthenticated: true});
         expect(wrapper.find(NavigationItem)).toHaveLength(3);
     });
+
+    // contains takes a real node and you can therefore check if it has exact match
+    it('should have an exact logout button when authenticated', () => {
+        wrapper.setProps({isAuthenticated: true});
+        // toEqual() find it if we are authenticated
+        expect(wrapper.contains(<NavigationItem link="/logout">Logout</NavigationItem>)).toEqual(true);
+    });
 });

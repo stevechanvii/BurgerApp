@@ -16,8 +16,10 @@ import * as burgerBuilderActions from '../../store/actions/index';
  * 
  * This class manges the ingredients of the burger, and controls the price as well as add & remove button,
  * also provide order function.
+ * 
+ * Adding export for testing
  */
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
 
     state = {
         purchaseable: false,
