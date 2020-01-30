@@ -126,8 +126,6 @@ class ContactData extends Component {
         // event.PreventDefault to prevent the default sending a request and reload the page
         event.preventDefault();
 
-        // this.setState({ loading: true });
-
         // get the name and value from the state
         const formData = {};
         /**
@@ -144,15 +142,6 @@ class ContactData extends Component {
             orderData: formData,
             userId: this.props.userId
         }
-
-        // axios.post('/orders.json', order).then(response => {
-        //     console.log(response);
-        //     this.setState({ loading: false });
-        //     this.props.history.push('/');
-        // }).catch(error => {
-        //     console.log(error);
-        //     this.setState({ loading: false });
-        // });
         this.props.onPurchaseBurger(order, this.props.token);
 
         // console.log(order);

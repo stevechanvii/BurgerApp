@@ -13,36 +13,18 @@ import Spinner from '../../components/UI/Spinner/Spinner';
  * Orders summary after checkout
  */
 class Orders extends Component {
-    // state = {
-    //     orders: [],
-    //     loading: true,
-    // }
 
     /**
      * get order managed by redux
      */
     componentDidMount() {
+        // console.log(this.props.userId);
         this.props.onFetchOrder(this.props.token, this.props.userId);
-        // axios.get('orders.json').then(response => {
-        //     console.log(response.data);
-
-        //     let fetchedOrders = [];
-        //     for (let key in response.data) {
-        //         fetchedOrders.push({
-        //             ...response.data[key],
-        //             id: key,
-        //         });
-        //     }
-        //     console.log(fetchedOrders);
-        //     this.setState({loading: false, orders: fetchedOrders});
-        // }).catch(error => {
-        //     this.setState({loading: false})
-        //     console.log(error);
-        // });
     }
 
     render() {
         let orders = <Spinner />;
+        // console.log(this.props.orders);
         if (!this.props.loading) {
             if (this.props.orders.length > 0){
                 orders = this.props.orders.map(order => (
