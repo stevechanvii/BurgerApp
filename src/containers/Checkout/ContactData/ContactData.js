@@ -8,6 +8,7 @@ import axios from '../../../axios-order';
 import Input from '../../../components/UI/Input/Input';
 import * as orderActions from '../../../store/actions/index';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import {updateObject} from '../../../shared/utility';
 
 /**
  * @class ContactData
@@ -163,21 +164,19 @@ class ContactData extends Component {
      */
     inputChangedHandler = (event, inputIdentifier) => {
         console.log(event.target.value, inputIdentifier);
-        // copy the orderForm
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        }
-        // then access the form content in orderForm
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
-        }
-        // update the value
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.touched = true;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        // save back in the orderForm
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
-        
+      
+        // update the nested values in orderForm
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+            value: event.target.value,
+            touched: true,
+            valid: this.checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation)
+        });
+
+        // update the orderForm
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifier]: updatedFormElement
+        });
+
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
