@@ -47,6 +47,10 @@ npm start
 ```
 ![Screenshot](/src/assets/burger_app_2.png)
 
+[Jest](https://jestjs.io/docs/en/getting-started) and [Enzyme](https://airbnb.io/enzyme/docs/api/) is used to test NavigationItems.test.js, BurgerBuilder.test.js and auth.test.js, type following code in terminal to run the test
+```
+node scripts/test.js --env=jsdom
+```
 
 ## Deployment
 
