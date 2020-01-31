@@ -81,6 +81,10 @@ Add additional notes about how to deploy this on a live system
 * Manage and persist user token
 * Imporve network security
 
+[V0.3.2] 31/Jan/2020
+* Add test cases
+* Release https://react-my-burger-6732f.firebaseapp.com/
+
 ## Authors
 
 * **Danyang Chen** - *Initial work* - [SteveChanVII](https://github.com/stevechanvii/)
