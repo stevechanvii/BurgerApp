@@ -24,7 +24,7 @@ npm install
 ## Firebase setup
 Create your own Realtime Firebase, and replace the baseURL in axios-order.js
 
-In authentication, enable Sign-in method to email/password. 
+In authentication, enable Sign-in method to email/password, and change the both API key in actions/auth auth function
 In database, change the rules to
 ```
 {
