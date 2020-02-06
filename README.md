@@ -2,7 +2,7 @@
 
 Customize your own burger and ordered! This burger App allows you register and create your own Burger. This single page application is created by React framework, and Redux is introduced to mange the significant states, Firebase and Authentication are used to save orders and identify users.
 
-Try build your own [burger](https://react-my-burger-6732f.firebaseapp.com/)!
+Try build your own [burger](https://myburger-7c866.firebaseapp.com)!
 
 ![Screenshot](/src/assets/burger_app_1.png)
 
